@@ -68,3 +68,43 @@ pbinom(q = 0,size = forest,prob = p,lower.tail = FALSE)
 pbinom(q = 0,size = forest,prob = p,lower.tail = FALSE)
 
 round(sum(dbinom(x = 8:349,size = forest,prob = .02,log = FALSE)),6)==round(pbinom(q = 7,size = forest,prob = p,lower.tail = FALSE),6)
+
+
+####Friday
+A<-2
+
+A+A
+
+a
+a1<-1
+B<-6
+
+A^B
+
+A==B
+A<B
+A>B
+A<=B
+A!=B
+
+
+Z<-c(1,2,3,4,5)
+newZ<-Z+2
+newZ[3]
+logicZ<-newZ<6
+sum(newZ<6)
+
+colors<-c("green","blue", "red","green","blue", "red")
+
+colors=="green"
+
+unique(colors)
+
+
+
+Z
+newZ
+
+Zs<-cbind(Z,newZ)
+Zs
+Zs[2,2]
