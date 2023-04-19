@@ -109,3 +109,68 @@ mean(y[1:100])
 sd(y[1:100])
 mean(y)
 sd(y)
+
+
+
+
+#Normal Review
+
+curve(dnorm(x,0,1),xlim=c(-5,5),main="mu=0, stdev=1")
+abline(v = -2)
+pnorm(q = -2,lower.tail = F)
+curve(pnorm(x,0,1),xlim=c(-5,5),main="mu=0, stdev=1")
+rnorm(n = 10,mean = 0,sd = 1)
+qnorm(p = .25)
+abline(v=-0.6744898)
+
+
+####Central Limit Theorem
+
+mean(round(runif(n = 20,min = 1,max = 20)))
+
+
+samplemeans<-NA
+
+for(i in 1:1000){
+  #Sys.sleep(.1)
+  sampleU<-runif(n = 500,min = 1,max = 20)
+  samplemeans[i]<-mean(sampleU)
+ 
+}
+
+hist(samplemeans,xlim = c(3,18))
+
+sd(samplemeans)
+SE<-sd(sampleU)/sqrt(length(sampleU))
+mean(sampleU)
+
+
+
+
+
+qnorm(p = c(.025,.975),mean = mean(sampleU),sd = sd(sampleU)/sqrt(length(sampleU)))
+
+1.96*SE+mean(sampleU)
+1.96*SE-mean(sampleU)
+
+
+
+
+
+samplemeansNORM<-NA
+
+for(i in 1:1000){
+  #Sys.sleep(.1)
+  sampleNORM<-rnorm(n = 50,mean = 15,sd = 4)
+  samplemeansNORM[i]<-mean(sampleNORM)
+}
+
+hist(samplemeansNORM,xlim = c(12,18))
+
+
+boxplot(sampleNORM)
+points(x = rep(x = 1,50),sampleNORM,pch=16,col="deeppink2",alpha=.5)
+points(x = 1,mean(sampleNORM),pch=16,col="cornflowerblue",cex=.5)
+
+sampleNORM[1]<-50
+hist(sampleNORM)
