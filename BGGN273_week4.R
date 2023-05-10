@@ -311,4 +311,4 @@ qt(p = .025,df = 9) #The quantiles of a t distribution are wider! especially at 
 CorrectUpperCI<-mean(jagteath)+(qt(p = .975,df = 9))*SEJT
 CorrectLowerCI<-mean(jagteath)+(qt(p = .025,df = 9))*SEJT
 
-t.test(x = jagteath,mu = theta)#Compare to results in t.test!
+t.test(x = jagteath,mu = theta)#Compare to results in t.test! 
