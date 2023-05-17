@@ -176,6 +176,36 @@ cbind(model.matrix(model),dat)
 summary(model)
 
 
+#Post Hoc tests
+aov.mod<-aov(model)
+TukeyHSD(aov.mod)
+
+
+#More complex post hoc testing
+#Need to be more careful in how the model is built. The treatment object needs to be a factor
+
+treats<-as.factor(treats)
+model2<-aov(lm(response~treats))#need an aov object for glht
+library(multcomp)
+tukey.hsd<-glht(model2,linfct=mcp(treats="Tukey"))#linfct specifies the type of linear hypothesis
+summary(tukey.hsd)
+plot(tukey.hsd)
+
+
+#Dunnetts test - here A is the focal group to compare against the others
+dunnet.test<-glht(model2,linfct=mcp(treats="Dunnett"))
+dunnet.test
+summary(dunnet.test)#notice the smaller p vals compared to Tukey, less alpha error likely because fewer comparisons.
+plot(dunnet.test)
+
+#change the order of the levels. For example, say that "C" is the control group
+
+newtreats<-factor(treats,levels(treats)[c(3,1,2)])
+
+newmod<-lm(response~newtreats)
+aov.newmod<-aov(newmod)
+new.dunnet.test<-glht(aov.newmod,linfct=mcp(newtreats="Dunnett"))
+summary(new.dunnet.test)
 
 ####Power
 
