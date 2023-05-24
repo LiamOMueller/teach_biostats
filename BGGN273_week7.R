@@ -154,3 +154,47 @@ C<-c(10,10,8,8,6,6,4,4,2,2,0)#
 D<-c(1,0,1,0,1,0,1,0,1,0,1)
 tau<-(sum(C)-sum(D))/(sum(C)+sum(D))
 cor(X,Y,method="kendall")
+
+
+
+####Linear Models
+
+wingspan<-c(17.7,18.7,17.2,20.1,19.1,17.7,18.9,19.8,15.8,19.5)
+speed<-c(8.26,7.45,6.95,8.53,9.37,8.49,9.7,9.09,7.34,9.69)
+
+
+slope<-cov(wingspan,speed)/var(wingspan)
+
+BirdMod<-lm(speed~wingspan)
+BirdMod
+max(wingspan)
+model.matrix(BirdMod)
+names(BirdMod)
+ssmod<-sum((BirdMod$fitted.values-mean(speed))^2)
+totalSS<-sum((speed-mean(speed))^2)
+summary(BirdMod)
+#R^2 why?
+cor(speed,BirdMod$fitted.values)^2#thats why
+t.score<-0.5072/0.1922
+anova(BirdMod)
+hist(BirdMod$residuals)
+plot(BirdMod)
+
+
+####Null F distribution
+treatment<-c(rep("A",13),rep("B",13),rep("C",13))
+Fscore<-NA
+for(i in 1:10000){
+  A<-rnorm(13)
+  B<-rnorm(13)
+  C<-rnorm(13)
+  response<-c(A,B,C)
+  mod<-lm(response~treatment)
+  MSmod<-(sum((mod$fitted.values-mean(response))^2))/2
+  MSres<-(sum((response-mod$fitted.values)^2))/36
+  Fscore[i]<-MSmod/MSres
+}
+hist(Fscore)
+curve(df(x,1,20),xlim = c(0,10),lwd=3)
+curve(df(x,2,20),xlim = c(0,10),col="#E69F00",add = T,lwd=3)
+curve(df(x,7,20),xlim = c(0,10),col="#56B4E9",add=T,lwd=3)
